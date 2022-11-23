@@ -1,2 +1,2 @@
-const SERVER_URL = "https://topps.diku.dk/pirc/rl-srl";
+const SERVER_URL = "https://revphp.vadg.io";
 const LOCAL_URL = SERVER_URL;
