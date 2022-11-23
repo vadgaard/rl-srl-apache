@@ -122,7 +122,6 @@
 
     function onShareClickHandler() {
         var url = currentScriptToUrl();
-        console.log(url);
 
         errorwindow.html('');
 
@@ -211,7 +210,6 @@
               timeout: timeoutTime
             })
             .done( function(response) {
-                console.log(response);
                 handleRunResponse(response);
             })
             .fail(function(hxr, textStatus, errorThrown) {
@@ -466,7 +464,7 @@
         invertButton.click(onInvertClickHandler);
         translateButton.click(onTranslateClickHandler);
         transferButton.click(onTransferClickHandler);
-        helpButton.click(function() { window.open("/help");  });
+        helpButton.click(function() { window.open("help");  });
         shareButton.click(onShareClickHandler);
         logCheckBox.click(onLogClickHandler);
         themeSelect.change(onThemeSelectChange);

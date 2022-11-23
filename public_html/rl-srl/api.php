@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL);
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // lang
 // mode
@@ -13,10 +14,10 @@ $log = filter_input(INPUT_POST, "log", FILTER_UNSAFE_RAW);
 $script = filter_input(INPUT_POST, "script", FILTER_UNSAFE_RAW);
 
 if (is_null($lang)) {
-    $lang = "srl";
+    $lang = "";
 }
 if (is_null($mode)) {
-    $mode = "run";
+    $mode = "";
 }
 if ($log !== "true") {
     $log = false;
@@ -25,69 +26,61 @@ if (is_null($script)) {
     $script = "";
 }
 
-$cmd = "../../rl-srl-apache/rl-srl-apache \"$lang\" \"$mode\" \"$log\" \"$script\"";
-// $output = shell_exec($cmd);
-// echo $output;
 
-if (execute($cmd, $output, $output, 2) > 0) {
-    echo json_encode(
-        array(
-            'error'  => 'Error: The execution timed out',
-            'log'    => null,
-            'output' => null
-        )
-    );
-}
-else {
-    echo $output;
-}
+$timeout = 2; // seconds
 
-function execute($cmd, &$stdout, &$stderr, $timeout=false)
+$dir = dirname(__FILE__);
+$cmd = "$dir/../../rl-srl-apache/rl-srl-apache \"$lang\" \"$mode\" \"$log\" \"$script\"";
+$dsc = array(
+    0 => array('pipe','r'),
+    1 => array('pipe','w')
+);
+$process = proc_open(
+    $cmd,
+    $dsc,
+    $pipes,
+    "/tmp",
+    array()
+);
+$start = time();
+$output = "";
+
+if(is_resource($process))
 {
-    $pipes = array();
-    $process = proc_open(
-        $cmd,
-        array(array('pipe','w'),array('pipe','w')),
-        $pipes
-    );
-    $pid = -1;
-    $start = time();
-    $stdout = '';
-    $stderr = '';
+    stream_set_blocking($pipes[0], 0);
+    stream_set_blocking($pipes[1], 0);
 
-    if(is_resource($process))
+    fwrite($pipes[0], '');
+    fclose($pipes[0]);
+}
+
+while(is_resource($process))
+{
+    $output .= stream_get_contents($pipes[1]);
+
+    if(time() - $start > $timeout)
     {
-        stream_set_blocking($pipes[0], 0);
-        stream_set_blocking($pipes[1], 0);
-        $pid = proc_get_status($process)['pid'];
+        proc_terminate($process, 9);
+        exec("pkill rl-srl-apache");
+        echo json_encode(
+            array(
+                'error'  => 'Error: The execution timed out',
+                'log'    => null,
+                'output' => null
+            )
+        );
     }
 
-    while(is_resource($process))
+    $status = proc_get_status($process);
+    if(!$status['running'])
     {
-        //echo ".";
-        $stdout .= stream_get_contents($pipes[0]);
-        $stderr .= stream_get_contents($pipes[1]);
-
-        if($timeout !== false && time() - $start > $timeout)
-        {
-            proc_terminate($process, 9);
-            exec("pkill rl-srl-apache");
-            return 1;
-        }
-
-        $status = proc_get_status($process);
-        if(!$status['running'])
-        {
-            fclose($pipes[0]);
-            fclose($pipes[1]);
-            proc_close($process);
-            return $status['exitcode'];
-        }
-
-        usleep(10000);
+        fclose($pipes[1]);
+        proc_close($process);
+	echo $output;
     }
 
-    return 1;
+    usleep(10000);
+
 }
 
 ?>
