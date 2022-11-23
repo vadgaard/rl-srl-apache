@@ -1,0 +1,63 @@
+name:                rl-srl-apache
+version:             0.1.0.0
+github:              LarsVadgaard/rl-srl-apache
+license:             BSD3
+author:              "Lars Vadgaard"
+maintainer:          "lars@vadg.io"
+copyright:           "2022 Lars Vadgaard"
+
+extra-source-files:
+- README.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/vadgaard/rl-srl-apache#readme>
+
+dependencies:
+- base >= 4.14 && < 5
+- scotty >= 0.12
+- parsec >= 3.0
+- monad-loops >= 0.4.3
+- unordered-containers >= 0.2.9
+- containers >= 0.5.10.2
+- mtl >= 2.2
+- filepath >= 1.4
+- regex-compat >= 0.95.1
+- aeson >= 2.1.1.0
+- aeson-pretty >= 0.8.9
+- text >= 1.2.5.0
+- bytestring >= 0.10.12.1
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+  #- -fno-omit-yields
+  # - -threaded
+- -O2
+
+library:
+  source-dirs: src
+
+executables:
+  rl-srl-apache:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -O2
+    dependencies:
+    - rl-srl-apache

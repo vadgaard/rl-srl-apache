@@ -1,0 +1,7 @@
+[
+  { "file": "acc",       "title": "Accumulated Sum"     },
+  { "file": "fac",       "title": "Factorial"           },
+  { "file": "fib",       "title": "Fibonacci Pair"      },
+  { "file": "primefac",  "title": "Prime Factorization" },
+  { "file": "squares",   "title": "List of Squares"     }
+]

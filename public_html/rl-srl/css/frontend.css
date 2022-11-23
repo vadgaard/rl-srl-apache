@@ -1,0 +1,124 @@
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: Helvetica, Arial, FreeSans, sans-serif;
+  font-size: 14px;
+}
+#control {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  margin: 0px;
+  background-color: #012460;
+  border-bottom: 4px solid #013183;
+  color: #f6fdff;
+}
+#control button {
+  border: none;
+  height: 100%;
+  cursor: pointer;
+  margin: 0px 5px;
+  padding: 0px 10px;
+  background-color: #f6fdff;
+  color: #012460;
+}
+#control button:hover {
+  background-color: #b9efff;
+}
+#control button:disabled,
+#control button:disabled:hover {
+  background-color: #f6fdff;
+  color: #b6b6b6;
+  cursor: default;
+}
+#control #lang {
+  width: 5.5em;
+}
+#control a.homepage {
+  text-decoration: none;
+  color: #f5626d;
+}
+#control a.homepage:hover {
+  color: #faaab0;
+}
+#control ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+#control li {
+  display: inline;
+}
+#control li .el {
+  margin-right: 5px;
+}
+#control #rl-srl {
+  width: auto;
+  height: 40px;
+  margin-left: 10px;
+  float: left;
+  fill: #f6fdff;
+}
+#control #haskell {
+  width: auto;
+  height: 40px;
+  margin-right: 10px;
+  float: right;
+  fill: #f6fdff;
+}
+#control #logo,
+#control #credits,
+#control #logdiv {
+  height: 45px;
+  display: inline;
+  height: 100%;
+  vertical-align: middle;
+  margin: 0px 10px;
+}
+#control #credits {
+  float: right;
+}
+#control #program {
+  width: 7em;
+}
+#control #theme {
+  width: 10em;
+}
+#main {
+  background-color: white;
+}
+#vsplitter,
+#hsplitter {
+  background-color: #aaa;
+}
+#errorwindow {
+  padding-left: 8px;
+  overflow: auto;
+  color: #333;
+  background-color: #ffd;
+}
+#editor,
+#outputwindow,
+#errorwindow {
+  font-size: 12pt;
+}
+#outputwindow {
+  overflow: auto;
+}

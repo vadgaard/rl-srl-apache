@@ -1,9 +1,7 @@
-.stack-work/
 *~
-redirect/
-Makefile
-dist-newstyle
+rl-srl-apache/.stack-work/
+rl-srl-apache/Makefile
+rl-srl-apache/dist-newstyle
 docker-compose.yml
-docker-compose.local.yml
-stack.yaml.lock
-frontend/config.js
+rl-srl-apache/stack.yaml.lock
+public_html/rl-srl/config.js
