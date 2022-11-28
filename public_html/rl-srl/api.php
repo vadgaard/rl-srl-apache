@@ -30,7 +30,7 @@ if (is_null($script)) {
 $timeout = 2; // seconds
 
 $dir = dirname(__FILE__);
-$cmd = "$dir/../../rl-srl-apache/rl-srl-apache \"$lang\" \"$mode\" \"$log\" \"$script\"";
+$cmd = "$dir/../rl-srl-apache/rl-srl-apache \"$lang\" \"$mode\" \"$log\" \"$script\"";
 $dsc = array(
     0 => array('pipe','r'),
     1 => array('pipe','w')
@@ -42,6 +42,7 @@ $process = proc_open(
     "/tmp",
     array()
 );
+proc_nice(20);
 $start = time();
 $output = "";
 
